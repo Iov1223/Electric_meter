@@ -57,8 +57,15 @@ namespace Electric_meter
             }
             else
             {
-                _tmp = (Convert.ToDouble(_night.Text) * Convert.ToDouble(textBoxNightPrice.Text)) + (Convert.ToInt32(_day.Text) * Convert.ToDouble(textBoxDayPrice.Text));
-                _sum.Content = _tmp.ToString("0.00");
+                if (_night.Text == "" | _day.Text == "")
+                {
+                    MessageBox.Show("Не хватает данных!");
+                }
+                else
+                {
+                    _tmp = (Convert.ToDouble(_night.Text) * Convert.ToDouble(textBoxNightPrice.Text)) + (Convert.ToInt32(_day.Text) * Convert.ToDouble(textBoxDayPrice.Text));
+                    _sum.Content = _tmp.ToString("0.00");
+                }
             }
         }
         private void buttonJanuary_Click(object sender, RoutedEventArgs e)
