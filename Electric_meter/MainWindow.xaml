@@ -1,0 +1,162 @@
+﻿<Window x:Class="Electric_meter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Electric_meter"
+        mc:Ignorable="d"
+        Title="Таблица затрат электроэнергии" Height="650" Width="800" MinHeight="650" MinWidth="800" 
+        PreviewTextInput="TextBox_TextInput"> <!--5) Привязываю туннелируемое событие для оброботки ввода в TextBox.-->
+    <!--3) Задаю логические ресурсы для элементов. Не задаю ключ x:Key, чтобы ресурсы применялись ко всем элементам соответсвующим TargetType.-->
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Background" Value="#FFC473" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Background" Value="#FFF473" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Content" Value="Посчитать" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="BorderThickness" Value="0.7" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E7E7E7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--4) Задаю один логический ресурс с указанием ключа, для прменения к выбранным элементам, для применения другич параметров.-->
+        <Style TargetType="TextBox" x:Key="textBoxGray" >
+            <Setter Property="Background" Value="#B5B5B5" />
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="BorderThickness" Value="0.7" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        </Window.Resources>
+        <Grid>
+        <!--1) Размечаю форму. Размеры ячеек не задаю, так как нужны ячейки оденого размера.-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--2) Размещаю элементы таблицы в ячейках Grid.-->
+        <!--Заголовок-->
+        <Label x:Name="labelMonths" Grid.Row="0" Grid.Column="0"/>
+        <Label x:Name="labelNight" Content="Ночь (Кол-во в кВт.ч)" Grid.Row="0" Grid.Column="1"/>
+        <Label x:Name="labelDay" Content="День (Кол-во в кВт.ч)" Grid.Row="0" Grid.Column="2"/>
+        <Label x:Name="labelResult" Content="Сумма в рублях" Grid.Row="0" Grid.Column="3"/>
+        <!--Тариф-->
+        <Label x:Name="labelPrice" Content="Тариф:" Grid.Row="1" Grid.Column="0" Background="#B5B5B5"/>
+        <!--Месяцы-->
+        <Label x:Name="labelJanuary" Content="Январь" Grid.Row="2" Grid.Column="0"/>
+        <Label x:Name="labelFebruary" Content="Февраль" Grid.Row="3" Grid.Column="0"/>
+        <Label x:Name="labelMarch" Content="Март" Grid.Row="4" Grid.Column="0"/>
+        <Label x:Name="labelApril" Content="Апрель" Grid.Row="5" Grid.Column="0"/>
+        <Label x:Name="labelMay" Content="Май" Grid.Row="6" Grid.Column="0"/>
+        <Label x:Name="labelJune" Content="Июнь" Grid.Row="7" Grid.Column="0"/>
+        <Label x:Name="labelJuly" Content="Июль" Grid.Row="8" Grid.Column="0"/>
+        <Label x:Name="labelAugust" Content="Август" Grid.Row="9" Grid.Column="0"/>
+        <Label x:Name="labelSeptember" Content="Сентябрь" Grid.Row="10" Grid.Column="0"/>
+        <Label x:Name="labelOctober" Content="Октябрь" Grid.Row="11" Grid.Column="0"/>
+        <Label x:Name="labelNovember" Content="Ноябрь" Grid.Row="12" Grid.Column="0"/>
+        <Label x:Name="labelDecember" Content="Декабрь" Grid.Row="13" Grid.Column="0"/>
+        <!--6) Привязываю пузырьковые события к кнопкам-->
+        <!--Кнопки-->
+        <Button x:Name="buttonJanuary" Grid.Row="2" Grid.Column="3" Click="buttonJanuary_Click" />
+        <Button x:Name="buttonFebruary" Grid.Row="3" Grid.Column="3" Click="buttonFebruary_Click" />
+        <Button x:Name="buttonMarch" Grid.Row="4" Grid.Column="3" Click="buttonMarch_Click" />
+        <Button x:Name="buttonApril" Grid.Row="5" Grid.Column="3" Click="buttonApril_Click" />
+        <Button x:Name="buttonMay" Grid.Row="6" Grid.Column="3" Click="buttonMay_Click" />
+        <Button x:Name="buttonJune" Grid.Row="7" Grid.Column="3" Click="buttonJune_Click" />
+        <Button x:Name="buttonJuly" Grid.Row="8" Grid.Column="3" Click="buttonJuly_Click" />
+        <Button x:Name="buttonAugust" Grid.Row="9" Grid.Column="3" Click="buttonAugust_Click" />
+        <Button x:Name="buttonSeptember" Grid.Row="10" Grid.Column="3" Click="buttonSeptember_Click" />
+        <Button x:Name="buttonOctober" Grid.Row="11" Grid.Column="3" Click="buttonOctober_Click" />
+        <Button x:Name="buttonNovember" Grid.Row="12" Grid.Column="3" Click="buttonNovember_Click" />
+        <Button x:Name="buttonDecember" Grid.Row="13" Grid.Column="3" Click="buttonDecember_Click" />
+        <!--Общая сумма-->
+        <Label x:Name="labelSum" Grid.Row="14" Grid.Column="2" Grid.ColumnSpan="4" Background="#9B6AD6" 
+               Foreground="White" Content="Общая сумма"/>
+        <!--Кнопка Итого-->
+        <Button x:Name="buttonTotal" Grid.Row="14" Content="Итого:" Grid.ColumnSpan="2"
+                Background="#66A1D2" Foreground="White" Click="buttonTotal_Click"/>
+        <!--Поля для заполнения данных сётчика-->
+        <TextBox x:Name="textBoxNightJanuary" Grid.Row="2" Grid.Column="1"/>
+        <TextBox x:Name="textBoxNightFebruary" Grid.Row="3" Grid.Column="1"/>
+        <TextBox x:Name="textBoxNightMarch" Grid.Row="4" Grid.Column="1"/>
+        <TextBox x:Name="textBoxNightApril" Grid.Row="5" Grid.Column="1"/>
+        <TextBox x:Name="textBoxNightMay" Grid.Row="6" Grid.Column="1"/>
+        <TextBox x:Name="textBoxNightJune" Grid.Row="7" Grid.Column="1"/>
+        <TextBox x:Name="textBoxNightJuly" Grid.Row="8" Grid.Column="1"/>
+        <TextBox x:Name="textBoxNightAugust" Grid.Row="9" Grid.Column="1"/>
+        <TextBox x:Name="textBoxNightSeptember" Grid.Row="10" Grid.Column="1"/>
+        <TextBox x:Name="textBoxNightOctober" Grid.Row="11" Grid.Column="1"/>
+        <TextBox x:Name="textBoxNightNovember" Grid.Row="12" Grid.Column="1"/>
+        <TextBox x:Name="textBoxNightDecember" Grid.Row="13" Grid.Column="1"/>
+
+        <TextBox x:Name="textBoxDayJanuary" Grid.Row="2" Grid.Column="2"/>
+        <TextBox x:Name="textBoxDayFebruary" Grid.Row="3" Grid.Column="2"/>
+        <TextBox x:Name="textBoxDayMarch" Grid.Row="4" Grid.Column="2"/>
+        <TextBox x:Name="textBoxDayApril" Grid.Row="5" Grid.Column="2"/>
+        <TextBox x:Name="textBoxDayMay" Grid.Row="6" Grid.Column="2"/>
+        <TextBox x:Name="textBoxDayJune" Grid.Row="7" Grid.Column="2"/>
+        <TextBox x:Name="textBoxDayJuly" Grid.Row="8" Grid.Column="2"/>
+        <TextBox x:Name="textBoxDayAugust" Grid.Row="9" Grid.Column="2"/>
+        <TextBox x:Name="textBoxDaySeptember" Grid.Row="10" Grid.Column="2"/>
+        <TextBox x:Name="textBoxDayOctober" Grid.Row="11" Grid.Column="2"/>
+        <TextBox x:Name="textBoxDayNovember" Grid.Row="12" Grid.Column="2"/>
+        <TextBox x:Name="textBoxDayDecember" Grid.Row="13" Grid.Column="2"/>
+        <!--7) По заданному ключу присваиваю логический ресурс двум ячейкам Textbox-->
+        <!--Поля для ввода тарифа-->
+        <TextBox x:Name="textBoxNightPrice" Grid.Row="1" Grid.Column="1" 
+                 Style="{StaticResource textBoxGray}"/>
+        <TextBox x:Name="textBoxDayPrice" Grid.Row="1" Grid.Column="2" 
+                 Style="{StaticResource textBoxGray}"/>
+        <!--Средняя стоимость тарифа-->
+        <Button x:Name="buttonMiddlePrice" Grid.Row="1" Grid.Column="3"
+                Content="Узнать среднюю цену" Background="#B5B5B5" Click="buttonMiddlePrice_Click" />
+    </Grid>
+</Window>
